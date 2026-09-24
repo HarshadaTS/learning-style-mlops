@@ -16,3 +16,8 @@ jobs:
           python-version: "3.11"
       - run: pip install -r requirements.txt
       - run: pytest -q tests/
+            - name: Build Docker image
+        run: docker build -t learning-style-api .
+
+      - name: Check Docker image
+        run: docker images learning-style-api
