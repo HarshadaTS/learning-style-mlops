@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+mlruns/
+.pytest_cache/
+results/
+models/*.joblib
+.DS_Store
+mlflow.db
+mlartifacts/
