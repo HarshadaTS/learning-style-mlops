@@ -17,5 +17,10 @@ This repository modernizes the original final-year learning-style classification
 6. AWS deployment
 7. Basic production monitoring
 
-## Important reproducibility note
-The original notebook trained the Random Forest on the full dataset before evaluating it on the held-out test set, which can introduce evaluation leakage. The cleaned pipeline uses a proper train/test split before fitting models. The original notebook also reports SVM experiments; the reported 91% figure should only be used on the resume after reproducing the exact experiment that produced it.
+## Important Reproducibility Note
+
+The original notebook trained the Random Forest on the full dataset before evaluating it on the held-out test set, which can introduce evaluation leakage.
+
+The cleaned MLOps pipeline uses a proper train/test split before fitting the model, providing a more reliable evaluation of model performance.
+
+The reported results in this repository are based on the cleaned and reproducible training pipeline.
