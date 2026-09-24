@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,8 +27,21 @@ jobs:
       - name: Run tests
         run: pytest -q tests/
 
-      - name: Build Docker image
-        run: docker build -t learning-style-api .
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check Docker image
-        run: docker images learning-style-api
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA} \
+            -t ghcr.io/${GITHUB_REPOSITORY,,}:latest \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA}
+          docker push ghcr.io/${GITHUB_REPOSITORY,,}:latest
